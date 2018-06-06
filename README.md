@@ -46,7 +46,8 @@ $ docker-compose down
 
 ## POST Example 
 POST: http://localhost:5000/users
-Content-Type: application/json 
+
+Content-Type: application/json
 
 Body:
 ```
