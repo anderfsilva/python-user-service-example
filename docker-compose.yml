@@ -1,0 +1,41 @@
+version: "3.1"
+
+services:
+  service-user:
+    image: service-user
+    container_name: service-user
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./:/mnt/app
+    environment:
+      - TZ=America/Los_Angeles
+      - APP_CONFIG_ENV=dev
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=user
+    depends_on:
+      - db
+    networks:
+      - frontend
+      - backend
+
+  db:
+    image: mysql:5.6
+    container_name: service-user-db
+    ports:
+      - "3306:3306"
+    environment:
+      - TZ=America/Los_Angeles
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:
